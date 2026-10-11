@@ -1,0 +1,1031 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Tajawal:wght@300;400;500;700;910&family=Almarai:wght@300;400;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Cairo", "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+/* 
+  -------------------------------------------------------------
+  OFFICIAL STATE ADMINISTRATIVE STYLE & SECURE LEDGER SCHEME
+  -------------------------------------------------------------
+  Government Colors:
+  - Pine Green (اللون الوطني الجزائري الرسمي)
+  - Executive Navy Blue (الأزرق الإداري المهيب)
+  - Prestige Gold/Bronze (البرونز والذهب السلطوي للختم الرسمي)
+  - Security Watermark Slate (خلفية الورق الرسمي المؤمن للوزارات)
+*/
+
+/* Default Fallbacks & General Root Variables */
+:root {
+  --color-primary: #047857; /* Official Pine Green */
+  --color-secondary: #064e3b; /* Deep Administrative Green */
+  --color-accent: #b45309; /* Seal Gold */
+  --color-accent-light: #d97706; /* Bright Bronze */
+  --color-porcelain: #f8fafc; /* Formal Document White */
+  --color-slate-dark: #0f172a; /* Executive Deep Slate */
+}
+
+/* Simple classic colors */
+
+body {
+  font-family: var(--font-sans);
+  background-color: #f8fafc;
+  color: #0f172a;
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dark body {
+  background-color: #0b111e;
+  color: #f8fafc;
+}
+
+/* -------------------------------------------------------------
+   OFFICIAL DOCUMENT SECURITY WATERMARK (خلفية التأمين والتدقيق الرسمي)
+   Replaces the ceramic mosaic with a subtle, professional security paper grid pattern.
+   ------------------------------------------------------------- */
+.bg-zellige-3d, .bg-zellige-1 {
+  background-color: #f8fafc;
+  background-image: 
+    radial-gradient(circle, rgba(15, 23, 42, 0.02) 1.2px, transparent 1.2px),
+    linear-gradient(to right, rgba(15, 23, 42, 0.01) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(15, 23, 42, 0.01) 1px, transparent 1px);
+  background-size: 28px 28px;
+  background-position: 0 0;
+  background-repeat: repeat;
+}
+
+.dark .bg-zellige-3d, .dark .bg-zellige-1 {
+  background-color: #080d16;
+  background-image: 
+    radial-gradient(circle, rgba(255, 255, 255, 0.02) 1.2px, transparent 1.2px),
+    linear-gradient(to right, rgba(255, 255, 255, 0.01) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.01) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+
+
+/* -------------------------------------------------------------
+   ADMINISTRATIVE FILING PANEL (بطاقة الأرشفة والتوثيق الحكومية)
+   ------------------------------------------------------------- */
+.glass-panel {
+  background: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-top: 4px solid var(--color-primary); /* Executive top label line */
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-panel::before {
+  display: none; /* Removed busy gradient overlay line */
+}
+
+.glass-panel:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.06), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+}
+
+.dark .glass-panel {
+  background: #111827;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 4px solid var(--color-primary);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+}
+
+
+
+/* -------------------------------------------------------------
+   STATE SECURE REGISTRY LEDGER HEADERS (ترويسة السجلات الرسمية والدواوين)
+   ------------------------------------------------------------- */
+.zellige-panel-header {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%) !important;
+  border-bottom: 3px solid var(--color-accent) !important;
+  position: relative;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.dark .zellige-panel-header {
+  background: linear-gradient(135deg, #1f2937 0%, #111827 100%) !important;
+  border-bottom: 3px solid var(--color-primary) !important;
+}
+
+/* Banners & Portals */
+.zellige-login-banner {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+}
+
+.dark .zellige-login-banner {
+  background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+}
+
+.zellige-modal-content {
+  background: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.1);
+  border-top: 6px solid var(--color-primary);
+}
+
+.dark .zellige-modal-content {
+  background: #111827;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 6px solid var(--color-primary);
+}
+
+/* Dynamic Active Navigation Link Styles */
+.glass-nav-active {
+  background: var(--color-primary) !important;
+  border: 1.5px solid var(--color-accent) !important;
+  color: #ffffff !important;
+  font-weight: 800 !important;
+}
+
+/* -------------------------------------------------------------
+   FORM INPUTS & DROPDOWNS (تنسيق الحقول الإدارية)
+   ------------------------------------------------------------- */
+input, select, textarea, .glass-input {
+  background: #ffffff !important;
+  border: 1.5px solid #cbd5e1 !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  transition: all 0.2s ease !important;
+  color: #0f172a !important;
+}
+
+input:focus, select:focus, textarea:focus, .glass-input:focus {
+  border-color: var(--color-primary) !important;
+  background: #ffffff !important;
+  box-shadow: 0 0 0 3px rgba(4, 120, 87, 0.15) !important;
+  transform: none !important;
+}
+
+.dark input, .dark select, .dark textarea, .dark .glass-input {
+  background: #1f2937 !important;
+  border: 1.5px solid #4b5563 !important;
+  color: #f9fafb !important;
+}
+
+.dark input:focus, .dark select:focus, .dark textarea:focus, .dark .glass-input:focus {
+  border-color: var(--color-primary) !important;
+  background: #1f2937 !important;
+  box-shadow: 0 0 0 3px rgba(4, 120, 87, 0.25) !important;
+}
+
+option {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  font-weight: 600 !important;
+}
+
+.dark option {
+  background-color: #1f2937 !important;
+  color: #f9fafb !important;
+  font-weight: 600 !important;
+}
+
+/* -------------------------------------------------------------
+   OFFICIAL REGISTRY STAMPS & BADGES
+   ------------------------------------------------------------- */
+.zellige-badge {
+  background-color: #f1f5f9;
+  border: 1.5px solid var(--color-accent);
+  border-radius: 4px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.zellige-badge::after {
+  display: none;
+}
+
+/* Executive Administrative Buttons */
+.glass-btn-primary {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%) !important;
+  color: #ffffff !important;
+  border-radius: 8px !important;
+  border: 1px solid var(--color-accent) !important;
+  font-weight: 700 !important;
+  transition: all 0.2s ease !important;
+}
+
+.glass-btn-primary:hover {
+  filter: brightness(110%) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+}
+
+.dark .glass-btn-primary {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%) !important;
+  border: 1px solid var(--color-accent) !important;
+}
+
+.glass-btn-emerald {
+  background: var(--color-primary) !important;
+  color: #ffffff !important;
+  border-radius: 8px !important;
+  border: 1px solid var(--color-accent) !important;
+  font-weight: 700 !important;
+  transition: all 0.2s ease !important;
+}
+
+.glass-btn-emerald:hover {
+  filter: brightness(110%) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Professional Security Watermark Row header */
+.zellige-header-mosaic {
+  position: relative;
+  background-color: var(--color-secondary);
+  border-bottom: 3px solid var(--color-accent);
+}
+
+.zellige-star-badge {
+  background: var(--color-primary);
+  border: 1.5px solid var(--color-accent);
+  transform: rotate(45deg);
+}
+
+.zellige-star-badge > * {
+  transform: rotate(-45deg);
+}
+
+/* Custom Millimeter Scrollbar (Administrative Colors) */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+  background: transparent;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-secondary);
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+}
+
+/* Master Print Optimizer: Resolves all layout shifts, pagination spills, and clipping bugs */
+@media print {
+  /* Setup clean page properties for A4 */
+  @page {
+    size: A4 portrait;
+    margin: 5mm 6mm 5mm 6mm !important;
+  }
+
+  /* Force light theme elements on print globally */
+  html, body {
+    background-color: #ffffff !important;
+    background-image: none !important;
+    color: #000000 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow: visible !important;
+    font-family: 'Cairo', 'Inter', system-ui, sans-serif !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Force-collapse and hide all on-screen wrapper elements, sidebars, headers, and floating overlays.
+     Setting 'display: none' ensures they take up exactly ZERO physical height during layout, preventing empty blank pages. */
+  .no-print, 
+  header, 
+  nav, 
+  aside, 
+  footer, 
+  button, 
+  .tab-bar, 
+  .sidebar, 
+  .sticky, 
+  .actions-logs-row, 
+  .zellige-panel-header,
+  .print\:hidden {
+    display: none !important;
+    height: 0 !important;
+    width: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    visibility: hidden !important;
+  }
+
+  /* Clean up root and structures specifically when printing invoices/receipts, guest forms, or custom notices.
+     By scoping with 'body.is-printing-xxx', we guarantee that standard absolute/relative display rules don't collapse or clip. */
+  body.is-printing-invoice #root, 
+  body.is-printing-invoice #root > div {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    min-height: 0 !important;
+    max-height: 0 !important;
+    overflow: hidden !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  body.is-printing-form #root,
+  body.is-printing-form #root > div {
+    position: static !important;
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    background-image: none !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  body.is-printing-invoice #print-invoice-modal-backdrop,
+  body.is-printing-invoice #print-invoice-modal-container,
+  body.is-printing-form #print-form-outer-wrapper {
+    position: static !important;
+    background: transparent !important;
+    background-image: none !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    border: none !important;
+    border-radius: 0px !important;
+    outline: none !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+
+  /* Structural sibling collapse rules removed to ensure proper printing functionality across all browsers */
+
+  /* BULLETPROOF INTERFACE INSULATION
+     Hides ALL of '#root' completely, and then forces ONLY the printable element
+     to override and become visible. This completely bypasses any nested container layout constraints
+     and avoids blanks across Safari, Chrome, Edge, and Android/iOS! */
+  body.is-printing-invoice #root {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    min-height: 0 !important;
+    max-height: 0 !important;
+    overflow: hidden !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  body.is-printing-invoice #print-invoice,
+  body.is-printing-invoice #print-invoice * {
+    visibility: visible !important;
+  }
+
+  body.is-printing-form #root {
+    visibility: hidden !important;
+  }
+  body.is-printing-form #print-area,
+  body.is-printing-form #print-area * {
+    visibility: visible !important;
+  }
+
+  body.is-printing-notices #root {
+    visibility: hidden !important;
+  }
+  body.is-printing-notices .print-system-root,
+  body.is-printing-notices .print-system-root * {
+    visibility: visible !important;
+  }
+
+  body.is-printing-ledger #root {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    min-height: 0 !important;
+    max-height: 0 !important;
+    overflow: hidden !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  body.is-printing-ledger #print-ledger {
+    display: block !important;
+    visibility: visible !important;
+    position: static !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+    width: 100% !important;
+    height: auto !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  body.is-printing-ledger #print-ledger * {
+    visibility: visible !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  /* Force ancestors to be standard auto-height block display containers during print instead of collapsing to 0 height/width.
+     This completely eliminates the text-wrapping glitches and the blank page spills caused by 0px container scopes. */
+  body.is-printing-invoice #root,
+  body.is-printing-invoice #root > div {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    min-height: 0 !important;
+    max-height: 0 !important;
+    overflow: hidden !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  body.is-printing-invoice #print-invoice-modal-backdrop,
+  body.is-printing-invoice #print-invoice-modal-container {
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    width: 100% !important;
+    min-width: 100% !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: block !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    border-radius: 0px !important;
+    outline: none !important;
+  }
+
+  body.is-printing-form #root,
+  body.is-printing-form #root > div,
+  body.is-printing-form #print-form-outer-wrapper {
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    width: 100% !important;
+    min-width: 100% !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: block !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    border-radius: 0px !important;
+    outline: none !important;
+  }
+
+  body.is-printing-notices #root,
+  body.is-printing-notices #root > div {
+    height: 100% !important;
+    min-height: 100% !important;
+    max-height: 100% !important;
+    width: 100% !important;
+    min-width: 100% !important;
+    overflow: hidden !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: block !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    border-radius: 0px !important;
+    outline: none !important;
+  }
+
+  /* Absolute position layout keeps elements positioned beautifully at the top of page sheet */
+  /* Dynamic layout sizing based on selected print size */
+  #print-invoice {
+    position: relative !important;
+    margin: 0 auto !important;
+    box-sizing: border-box !important;
+    background: #ffffff !important;
+    background-image: none !important;
+    border-radius: 0px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    line-height: 1.3 !important;
+    box-shadow: none !important;
+    overflow: visible !important;
+    page-break-after: avoid !important;
+    page-break-inside: avoid !important;
+    z-index: 999999 !important;
+  }
+
+  #print-invoice.invoice-size-a5 {
+    width: 198mm !important;
+    max-width: 198mm !important;
+    height: 138mm !important;
+    min-height: 138mm !important;
+    max-height: 138mm !important;
+    padding: 4mm 6mm !important;
+  }
+
+  #print-invoice.invoice-size-a6 {
+    width: 95mm !important;
+    max-width: 95mm !important;
+    height: 135mm !important;
+    min-height: 135mm !important;
+    max-height: 135mm !important;
+    padding: 2.5mm 3.5mm !important;
+  }
+
+  #print-invoice.invoice-size-a4 {
+    width: 198mm !important;
+    max-width: 198mm !important;
+    height: 280mm !important;
+    min-height: 280mm !important;
+    max-height: 280mm !important;
+    padding: 8mm 10mm !important;
+  }
+
+  #print-area {
+    position: relative !important;
+    margin: 0 auto !important;
+    box-sizing: border-box !important;
+    background: #ffffff !important;
+    background-image: none !important;
+    border-radius: 0px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    box-shadow: none !important;
+    overflow: hidden !important;
+    page-break-after: avoid !important;
+    page-break-inside: avoid !important;
+    z-index: 999999 !important;
+  }
+
+  /* Specific dimensions and margins are dynamically injected by PrintableForm.tsx style block to prevent conflicts */
+
+
+  /* Insulate nested printed components and enforce exact theme color preservation */
+  #print-invoice,
+  #print-area,
+  #print-invoice *,
+  #print-area * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+    text-shadow: none !important;
+  }
+
+  /* Preserve original layout properties from on-screen preview 100% on actual prints */
+  #print-invoice {
+    background-clip: padding-box !important;
+  }
+}
+
+/* -------------------------------------------------------------
+   PROMINENT, SHADOWED, GLOSSY AND SHINING SHIMMER TEXT STYLES
+   (تأثيرات الكتابة البارزة والمظللة واللامعة الفاخرة)
+   ------------------------------------------------------------- */
+
+/* Glow Amber Gold metallic shining shimmer - optimized for maximum crispness & contrast in light and dark modes */
+.text-shiny-gold {
+  /* Default dark, highly legible crisp gold/brass for light mode backgrounds */
+  background: linear-gradient(135deg, #996e0f 0%, #cca43b 35%, #704f08 60%, #b08d2f 85%, #4b3303 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0px 0.5px 1px rgba(0, 0, 0, 0.1));
+  font-weight: 950;
+  letter-spacing: -0.01em;
+}
+
+/* Bright gold for dark mode OR inside dark backgrounds like buttons and banners in light mode */
+.dark .text-shiny-gold,
+.glass-btn-primary .text-shiny-gold,
+.glass-btn-emerald .text-shiny-gold,
+.zellige-login-banner .text-shiny-gold,
+.bg-slate-900 .text-shiny-gold,
+.bg-slate-950 .text-shiny-gold,
+.bg-indigo-950 .text-shiny-gold,
+.bg-gradient-to-r .text-shiny-gold {
+  background: linear-gradient(135deg, #dfb145 0%, #fff6ca 30%, #cca43b 50%, #fff6ca 75%, #a47e22 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0px 1.5px 2px rgba(0, 0, 0, 0.4));
+}
+
+/* Glow Emerald metallic shining */
+.text-shiny-emerald {
+  background: linear-gradient(135deg, #10b981 0%, #a7f3d0 35%, #047857 60%, #a7f3d0 85%, #064e3b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0px 2px 3px rgba(0, 0, 0, 0.45));
+  font-weight: 950;
+}
+
+/* Glow Indigo metallic shining */
+.text-shiny-indigo {
+  background: linear-gradient(135deg, #6366f1 0%, #c7d2fe 35%, #4338ca 60%, #c7d2fe 85%, #312e81 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0px 2px 3px rgba(0, 0, 0, 0.45));
+  font-weight: 950;
+}
+
+/* Strong text shadow for maximum legibility and 3D embossing appearance */
+.text-prominent-shadow {
+  text-shadow: 0 1px 2px rgba(204, 164, 59, 0.25);
+}
+
+.dark .text-prominent-shadow,
+.zellige-login-banner .text-prominent-shadow {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.42), 0 0 10px rgba(204, 164, 59, 0.28);
+}
+
+.text-prominent-shadow-sm {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25), 0 0 6px rgba(204, 164, 59, 0.15);
+}
+
+.text-prominent-shadow-white {
+  text-shadow: 0 1px 3px rgba(255, 255, 255, 0.8), 0 0 8px rgba(255, 255, 255, 0.5);
+}
+
+/* Glowing shiny anim border or background */
+.shining-glowing-gold {
+  box-shadow: 0 0 15px rgba(204, 164, 59, 0.35), inset 0 0 10px rgba(204, 164, 59, 0.15);
+  border-color: #cca43b !important;
+}
+
+.shining-glowing-emerald {
+  box-shadow: 0 0 15px rgba(16, 185, 129, 0.35), inset 0 0 10px rgba(16, 185, 129, 0.15);
+  border-color: #10b981 !important;
+}
+
+/* Custom responsive theme classes for headers, logins, modals, and tabs with elegant classic backgrounds */
+.zellige-panel-header {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%) !important;
+  border-bottom: 1.5px solid rgba(203, 213, 225, 0.3) !important;
+  position: relative;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.zellige-login-banner {
+  background: linear-gradient(to top right, #1e293b, #0f172a);
+}
+
+.zellige-modal-content {
+  background: linear-gradient(to bottom, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95));
+}
+
+.glass-nav-active {
+  background: linear-gradient(to right, #047857, #064e3b) !important;
+  border: 2px solid #cca43b !important;
+  box-shadow: 0 0 15px rgba(204, 164, 59, 0.25) !important;
+  color: #ffffff !important;
+}
+
+
+/* Custom scrollbar for mobile bottom bar */
+.mobile-nav-scroll::-webkit-scrollbar {
+  height: 4px;
+}
+.mobile-nav-scroll::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 999px;
+}
+.mobile-nav-scroll::-webkit-scrollbar-thumb {
+  background: #cca43b;
+  border-radius: 999px;
+}
+
+/* Force horizontal scrollbar to be permanently visible and highly stylized */
+.always-scrollbar::-webkit-scrollbar {
+  height: 6px !important;
+  display: block !important;
+}
+.always-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-radius: 999px !important;
+}
+.always-scrollbar::-webkit-scrollbar-thumb {
+  background: #cca43b !important;
+  border-radius: 999px !important;
+}
+.always-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #dfb145 !important;
+}
+.always-scrollbar {
+  scrollbar-width: thin !important;
+  scrollbar-color: #cca43b rgba(255, 255, 255, 0.08) !important;
+  -webkit-overflow-scrolling: touch !important;
+}
+
+
+/* Highly optimized scrollbar for desktop bottom nav */
+.desktop-nav-scroll {
+  overflow-x: auto !important;
+  scrollbar-width: thin !important;
+  scrollbar-color: rgba(204, 164, 59, 0.5) rgba(255, 255, 255, 0.04) !important;
+  -webkit-overflow-scrolling: touch !important;
+}
+
+.desktop-nav-scroll::-webkit-scrollbar {
+  height: 4px !important;
+  display: block !important;
+}
+
+.desktop-nav-scroll::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.03) !important;
+  border-radius: 999px !important;
+}
+
+.desktop-nav-scroll::-webkit-scrollbar-thumb {
+  background: rgba(204, 164, 59, 0.5) !important;
+  border-radius: 999px !important;
+}
+
+.desktop-nav-scroll::-webkit-scrollbar-thumb:hover {
+  background: #cca43b !important;
+}
+
+/* Sleek custom scrollbar and progress for sub-navigation */
+.subnav-drag-scroll {
+  overflow-x: auto !important;
+  scrollbar-width: thin !important;
+  scrollbar-color: rgba(204, 164, 59, 0.6) rgba(0, 0, 0, 0.03) !important;
+  -webkit-overflow-scrolling: touch !important;
+}
+
+.subnav-drag-scroll::-webkit-scrollbar {
+  height: 4px !important;
+}
+
+.subnav-drag-scroll::-webkit-scrollbar-track {
+  background: rgba(148, 163, 184, 0.05) !important;
+  border-radius: 999px !important;
+}
+
+.dark .subnav-drag-scroll::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.2) !important;
+}
+
+.subnav-drag-scroll::-webkit-scrollbar-thumb {
+  background: rgba(204, 164, 59, 0.6) !important;
+  border-radius: 999px !important;
+}
+
+.subnav-drag-scroll::-webkit-scrollbar-thumb:hover {
+  background: #cca43b !important;
+}
+
+/* Custom Sizing overrides for invoice print preview (A6 & A4 scaling engines) */
+#print-invoice.invoice-size-a6 {
+  padding: 2.5mm 4mm !important;
+  gap: 1.5mm !important;
+}
+#print-invoice.invoice-size-a6 * {
+  font-size: 8px !important;
+  line-height: 1.15 !important;
+}
+#print-invoice.invoice-size-a6 h1 {
+  font-size: 11px !important;
+}
+#print-invoice.invoice-size-a6 h2 {
+  font-size: 10px !important;
+}
+#print-invoice.invoice-size-a6 h3 {
+  font-size: 8.5px !important;
+}
+#print-invoice.invoice-size-a6 .print-logo-title {
+  font-size: 11px !important;
+}
+#print-invoice.invoice-size-a6 .print-logo-sub {
+  font-size: 7px !important;
+}
+#print-invoice.invoice-size-a6 .print-status-box {
+  font-size: 7.5px !important;
+  padding: 1px 3px !important;
+}
+#print-invoice.invoice-size-a6 .print-grid {
+  gap: 1.5mm !important;
+  margin: 1mm 0 !important;
+}
+#print-invoice.invoice-size-a6 .print-info-panel {
+  padding: 1.5mm !important;
+}
+#print-invoice.invoice-size-a6 .print-table th,
+#print-invoice.invoice-size-a6 .print-table td,
+#print-invoice.invoice-size-a6 table th,
+#print-invoice.invoice-size-a6 table td {
+  padding: 1px 3px !important;
+  font-size: 7.5px !important;
+}
+#print-invoice.invoice-size-a6 .print-totals-grid,
+#print-invoice.invoice-size-a6 .grid-cols-12 {
+  gap: 1.5mm !important;
+  margin-top: 1mm !important;
+}
+#print-invoice.invoice-size-a6 .print-sums,
+#print-invoice.invoice-size-a6 .col-span-5 {
+  padding: 1.5mm !important;
+}
+#print-invoice.invoice-size-a6 .sum-row {
+  font-size: 7.5px !important;
+}
+#print-invoice.invoice-size-a6 .bold-sum {
+  font-size: 8.5px !important;
+}
+#print-invoice.invoice-size-a6 .cash-badge-print {
+  font-size: 8.5px !important;
+  padding: 1px 2px !important;
+}
+#print-invoice.invoice-size-a6 .print-notes,
+#print-invoice.invoice-size-a6 .col-span-7 {
+  padding: 1mm 1.5mm !important;
+}
+#print-invoice.invoice-size-a6 .print-notes p,
+#print-invoice.invoice-size-a6 .col-span-7 p {
+  font-size: 7px !important;
+}
+#print-invoice.invoice-size-a6 .print-seal-container,
+#print-invoice.invoice-size-a6 .border-t-2 {
+  padding-top: 1mm !important;
+}
+#print-invoice.invoice-size-a6 .print-seal-container div,
+#print-invoice.invoice-size-a6 .text-left {
+  font-size: 7.5px !important;
+}
+#print-invoice.invoice-size-a6 svg.w-10,
+#print-invoice.invoice-size-a6 .w-10,
+#print-invoice.invoice-size-a6 .w-12 {
+  width: 24px !important;
+  height: 24px !important;
+}
+#print-invoice.invoice-size-a6 .h-10,
+#print-invoice.invoice-size-a6 .h-12 {
+  height: 24px !important;
+}
+
+#print-invoice.invoice-size-a4 {
+  padding: 8mm 10mm !important;
+  gap: 6mm !important;
+}
+#print-invoice.invoice-size-a4 * {
+  font-size: 13px !important;
+  line-height: 1.45 !important;
+}
+#print-invoice.invoice-size-a4 h1 {
+  font-size: 24px !important;
+}
+#print-invoice.invoice-size-a4 h2 {
+  font-size: 20px !important;
+}
+#print-invoice.invoice-size-a4 h3 {
+  font-size: 15px !important;
+}
+#print-invoice.invoice-size-a4 .print-logo-title {
+  font-size: 22px !important;
+}
+#print-invoice.invoice-size-a4 .print-logo-sub {
+  font-size: 13px !important;
+}
+#print-invoice.invoice-size-a4 .print-status-box {
+  font-size: 14px !important;
+  padding: 4px 10px !important;
+}
+#print-invoice.invoice-size-a4 .print-grid {
+  gap: 6mm !important;
+  margin: 3mm 0 !important;
+}
+#print-invoice.invoice-size-a4 .print-info-panel {
+  padding: 4mm !important;
+}
+#print-invoice.invoice-size-a4 .print-table th,
+#print-invoice.invoice-size-a4 .print-table td,
+#print-invoice.invoice-size-a4 table th,
+#print-invoice.invoice-size-a4 table td {
+  padding: 7px 10px !important;
+  font-size: 13px !important;
+}
+#print-invoice.invoice-size-a4 .print-totals-grid,
+#print-invoice.invoice-size-a4 .grid-cols-12 {
+  gap: 6mm !important;
+  margin-top: 3mm !important;
+}
+#print-invoice.invoice-size-a4 .print-sums,
+#print-invoice.invoice-size-a4 .col-span-5 {
+  padding: 4mm !important;
+}
+#print-invoice.invoice-size-a4 .sum-row {
+  font-size: 13px !important;
+}
+#print-invoice.invoice-size-a4 .bold-sum {
+  font-size: 15px !important;
+}
+#print-invoice.invoice-size-a4 .cash-badge-print {
+  font-size: 15px !important;
+  padding: 4px 6px !important;
+}
+#print-invoice.invoice-size-a4 .print-notes,
+#print-invoice.invoice-size-a4 .col-span-7 {
+  padding: 3mm 4mm !important;
+}
+#print-invoice.invoice-size-a4 .print-notes p,
+#print-invoice.invoice-size-a4 .col-span-7 p {
+  font-size: 12.5px !important;
+}
+#print-invoice.invoice-size-a4 .print-seal-container,
+#print-invoice.invoice-size-a4 .border-t-2 {
+  padding-top: 5mm !important;
+}
+#print-invoice.invoice-size-a4 .print-seal-container div,
+#print-invoice.invoice-size-a4 .text-left {
+  font-size: 13px !important;
+}
+#print-invoice.invoice-size-a4 svg.w-10,
+#print-invoice.invoice-size-a4 .w-10,
+#print-invoice.invoice-size-a4 .w-12 {
+  width: 48px !important;
+  height: 48px !important;
+}
+#print-invoice.invoice-size-a4 .h-10,
+#print-invoice.invoice-size-a4 .h-12 {
+  height: 48px !important;
+}
+
+/* Custom warning blink animation for identity document label in GuestForm */
+@keyframes labelWarnBlink {
+  0%, 100% {
+    color: #e11d48; /* rose-600 */
+    text-shadow: 0 0 2px rgba(225, 29, 72, 0.2);
+  }
+  50% {
+    color: #d97706; /* amber-600 */
+    text-shadow: 0 0 8px rgba(217, 119, 6, 0.4);
+  }
+}
+
+.animate-label-warning {
+  animation: labelWarnBlink 1.2s infinite ease-in-out !important;
+}
+
+/* Custom warning blink animation for identity document input field in GuestForm */
+@keyframes inputWarnBlink {
+  0%, 100% {
+    border-color: #e11d48; /* rose-600 */
+    background-color: rgba(244, 63, 94, 0.08);
+    box-shadow: 0 0 4px rgba(244, 63, 94, 0.2);
+  }
+  50% {
+    border-color: #d97706; /* amber-600 */
+    background-color: rgba(245, 158, 11, 0.22);
+    box-shadow: 0 0 14px rgba(245, 158, 11, 0.5);
+  }
+}
+
+.animate-input-warning {
+  animation: inputWarnBlink 1.2s infinite ease-in-out !important;
+  border-width: 1.5px !important;
+}
+
+/* Highly visible blinking animation for framed identity document label */
+@keyframes frameBlink {
+  0%, 100% {
+    border-color: #cca43b; /* gold */
+    background-color: rgba(204, 164, 59, 0.08);
+    color: #cca43b;
+    box-shadow: 0 0 4px rgba(204, 164, 59, 0.2);
+  }
+  50% {
+    border-color: #ef4444; /* bright red */
+    background-color: rgba(239, 68, 68, 0.18);
+    color: #ef4444;
+    box-shadow: 0 0 12px rgba(239, 68, 68, 0.5);
+  }
+}
+
+.animate-frame-blink {
+  animation: frameBlink 1s infinite ease-in-out !important;
+}
+
+
+
+
+

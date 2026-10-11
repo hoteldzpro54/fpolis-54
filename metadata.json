@@ -1,0 +1,12 @@
+{
+  "name": "Remix 54 استمارة الشرطة",
+  "description": "تطبيق ملء استمارة إقامة النزلاء الفندقية وطباعتها الرسمية",
+  "requestFramePermissions": [
+    "camera",
+    "microphone",
+    "geolocation"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

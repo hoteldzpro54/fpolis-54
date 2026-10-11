@@ -1,0 +1,361 @@
+{
+  "entities": {
+    "Guest": {
+      "title": "Guest",
+      "description": "Details of a hotel guest registration and check-out information",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier of the guest registration"
+        },
+        "roomNumber": {
+          "type": "string",
+          "description": "Assigned room number for the guest"
+        },
+        "idType": {
+          "type": "string",
+          "description": "Type of ID presented (e.g. Passport, National ID)"
+        },
+        "idNumber": {
+          "type": "string",
+          "description": "The unique identification number"
+        },
+        "firstNameAr": {
+          "type": "string",
+          "description": "First name of the guest in Arabic"
+        },
+        "lastNameAr": {
+          "type": "string",
+          "description": "Last name of the guest in Arabic"
+        },
+        "firstNameEn": {
+          "type": "string",
+          "description": "First name of the guest in English"
+        },
+        "lastNameEn": {
+          "type": "string",
+          "description": "Last name of the guest in English"
+        },
+        "dob": {
+          "type": "string",
+          "description": "Date of birth of the guest"
+        },
+        "pob": {
+          "type": "string",
+          "description": "Place of birth of the guest"
+        },
+        "fatherName": {
+          "type": "string",
+          "description": "Father's name of the guest"
+        },
+        "motherFullName": {
+          "type": "string",
+          "description": "Mother's full name"
+        },
+        "checkInDate": {
+          "type": "string",
+          "description": "Check-in date formatted string"
+        },
+        "checkOutDate": {
+          "type": "string",
+          "description": "Check-out date formatted string"
+        },
+        "notes": {
+          "type": "string",
+          "description": "Additional notes for this guest"
+        },
+        "phoneNumber": {
+          "type": "string",
+          "description": "Phone number of guest"
+        },
+        "nationality": {
+          "type": "string",
+          "description": "Nationality of the guest"
+        },
+        "roomClassification": {
+          "type": "string",
+          "description": "Classification/type of the room"
+        },
+        "checkoutConfirmed": {
+          "type": "boolean",
+          "description": "Whether check-out is confirmed and room is vacated"
+        },
+        "isPaid": {
+          "type": "boolean",
+          "description": "Whether payment has been completed"
+        },
+        "paidDays": {
+          "type": "number",
+          "description": "Number of days paid for"
+        },
+        "paidAmount": {
+          "type": "number",
+          "description": "Total amount paid so far in DZD"
+        },
+        "paymentStatus": {
+          "type": "string",
+          "description": "Overall payment status (paid, partial, unpaid)"
+        },
+        "pricingMode": {
+          "type": "string",
+          "description": "Pricing calculation mode (daily or hourly)"
+        },
+        "roomRateType": {
+          "type": "string",
+          "description": "Rate type (room or person)"
+        },
+        "baseRate": {
+          "type": "number",
+          "description": "Custom rate per night or hour"
+        },
+        "stayDurationHours": {
+          "type": "number",
+          "description": "Duration in hours if hourly mode"
+        },
+        "actualCheckOutDate": {
+          "type": "string",
+          "description": "Date-time when guest actually checked out"
+        },
+        "calculatedRentalPrice": {
+          "type": "number",
+          "description": "Total calculated rental price"
+        },
+        "delayDurationMinutes": {
+          "type": "number",
+          "description": "Late checkout duration in minutes"
+        },
+        "delayPenaltyPaid": {
+          "type": "number",
+          "description": "Late checkout penalty paid"
+        },
+        "isLateCheckout": {
+          "type": "boolean",
+          "description": "Flag indicating late checkout"
+        },
+        "checkInTime": {
+          "type": "string",
+          "description": "Time of check-in"
+        },
+        "rentalClassificationId": {
+          "type": "string",
+          "description": "Linked rental period classification"
+        },
+        "timestamp": {
+          "type": "number",
+          "description": "Registration creation epoch timestamp"
+        }
+      },
+      "required": [
+        "id",
+        "roomNumber",
+        "idType",
+        "idNumber",
+        "firstNameAr",
+        "lastNameAr",
+        "firstNameEn",
+        "lastNameEn",
+        "dob",
+        "pob",
+        "fatherName",
+        "motherFullName",
+        "checkInDate",
+        "checkOutDate",
+        "notes",
+        "timestamp"
+      ]
+    },
+    "AppNote": {
+      "title": "AppNote",
+      "description": "Shared messages or operational notes between hotel staff and police",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier of the note"
+        },
+        "content": {
+          "type": "string",
+          "description": "Content text of the note"
+        },
+        "priority": {
+          "type": "string",
+          "enum": ["normal", "important", "danger"],
+          "description": "Note urgency/importance level"
+        },
+        "senderRole": {
+          "type": "string",
+          "enum": ["receptionist", "police"],
+          "description": "Role of the user sending the note"
+        },
+        "timestamp": {
+          "type": "number",
+          "description": "Creation timestamp in milliseconds"
+        },
+        "readBy": {
+          "type": "array",
+          "description": "Roles of users who have read this note"
+        },
+        "senderUsername": {
+          "type": "string",
+          "description": "The specific username of the staff member who composed the note"
+        },
+        "channel": {
+          "type": "string",
+          "enum": ["all", "internal"],
+          "description": "Communication channel target audience ('all' for hotel + police, 'internal' for hotel staff only)"
+        }
+      },
+      "required": [
+        "id",
+        "content",
+        "priority",
+        "senderRole",
+        "timestamp",
+        "readBy"
+      ]
+    },
+    "RoomStatus": {
+      "title": "RoomStatus",
+      "description": "Operational tracking status of a specific hotel room",
+      "type": "object",
+      "properties": {
+        "roomId": {
+          "type": "string",
+          "description": "Room number or code string"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["available", "occupied", "reserved", "out_of_order", "dirty"],
+          "description": "Current state status of the room"
+        },
+        "lastUpdated": {
+          "type": "number",
+          "description": "The last time the room was updated"
+        }
+      },
+      "required": [
+        "roomId",
+        "status",
+        "lastUpdated"
+      ]
+    },
+    "MaintenanceIssue": {
+      "title": "MaintenanceIssue",
+      "description": "Internal report of an unready room, facility, or malfunctioning item in the hotel",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier of the maintenance issue"
+        },
+        "itemType": {
+          "type": "string",
+          "description": "Type of item"
+        },
+        "targetName": {
+          "type": "string",
+          "description": "Name or identification number of the unready room/facility/thing"
+        },
+        "description": {
+          "type": "string",
+          "description": "Detailed explanation note of the issue / unreadiness"
+        },
+        "status": {
+          "type": "string",
+          "description": "Current status of the issue"
+        },
+        "priority": {
+          "type": "string",
+          "description": "Priority urgency of resolve"
+        },
+        "reportedBy": {
+          "type": "string",
+          "description": "Username of receptionist reporting this"
+        },
+        "reportedAt": {
+          "type": "number",
+          "description": "Issue creation timestamp in milliseconds"
+        },
+        "resolvedBy": {
+          "type": "string",
+          "description": "Username of person who resolved the issue"
+        },
+        "resolvedAt": {
+          "type": "number",
+          "description": "Issue resolution timestamp in milliseconds"
+        }
+      },
+      "required": [
+        "id",
+        "itemType",
+        "targetName",
+        "description",
+        "status",
+        "priority",
+        "reportedBy",
+        "reportedAt"
+      ]
+    },
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Receptionist or staff member contact and profile details",
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string",
+          "description": "Username of the staff member"
+        },
+        "fullName": {
+          "type": "string",
+          "description": "Full name of the staff member"
+        },
+        "phoneNumber": {
+          "type": "string",
+          "description": "Phone number for direct calls"
+        },
+        "whatsAppNumber": {
+          "type": "string",
+          "description": "WhatsApp contact number"
+        },
+        "customNotes": {
+          "type": "string",
+          "description": "Optional notes or availability info"
+        },
+        "updatedAt": {
+          "type": "number",
+          "description": "Timestamp when the profile was last modified"
+        }
+      },
+      "required": [
+        "username",
+        "fullName",
+        "phoneNumber",
+        "whatsAppNumber",
+        "updatedAt"
+      ]
+    }
+  },
+  "firestore": {
+    "/guests/{guestId}": {
+      "schema": "Guest",
+      "description": "Collection of guest registration records"
+    },
+    "/notes/{noteId}": {
+      "schema": "AppNote",
+      "description": "Collection of secure communication or operational notes"
+    },
+    "/rooms/{roomId}": {
+      "schema": "RoomStatus",
+      "description": "Collection of rooms status tracking records"
+    },
+    "/maintenance/{issueId}": {
+      "schema": "MaintenanceIssue",
+      "description": "Collection of hotel unready facilities/rooms/items maintenance trackings"
+    },
+    "/profiles/{username}": {
+      "schema": "UserProfile",
+      "description": "Staff profile information for quick contacts"
+    }
+  }
+}

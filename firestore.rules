@@ -1,0 +1,259 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 1. Global Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Global helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isAnonymousUser() {
+      return isSignedIn() && (
+        request.auth.token.firebase.sign_in_provider == 'anonymous' ||
+        !('email' in request.auth.token) ||
+        request.auth.token.email == null
+      );
+    }
+
+    function isVerifiedUser() {
+      return isSignedIn() && (
+        request.auth.token.email_verified == true || (
+          'email' in request.auth.token && 
+          request.auth.token.email is string && (
+            request.auth.token.email.matches('.*@hotel\\.ajad$') || 
+            request.auth.token.email.matches('.*@hotel-palms\\.com$') || 
+            request.auth.token.email.matches('.*@hotel-or-inn\\.com$') ||
+            request.auth.token.email == 'wahdihoteldz@gmail.com' ||
+            request.auth.token.email.matches('.*@gmail\\.com$')
+          )
+        )
+      ) && !isAnonymousUser();
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    // Entity validator: Guest records
+    function isValidGuest(data) {
+      return data.id is string && data.id.size() <= 128
+        && data.roomNumber is string && data.roomNumber.size() <= 100
+        && data.idType is string && data.idType.size() <= 100
+        && data.idNumber is string && data.idNumber.size() <= 100
+        && data.firstNameAr is string && data.firstNameAr.size() <= 100
+        && data.lastNameAr is string && data.lastNameAr.size() <= 100
+        && data.firstNameEn is string && data.firstNameEn.size() <= 100
+        && data.lastNameEn is string && data.lastNameEn.size() <= 100
+        && data.dob is string && data.dob.size() <= 100
+        && data.pob is string && data.pob.size() <= 100
+        && data.fatherName is string && data.fatherName.size() <= 100
+        && data.motherFullName is string && data.motherFullName.size() <= 100
+        && data.checkInDate is string && data.checkInDate.size() <= 100
+        && data.checkOutDate is string && data.checkOutDate.size() <= 100
+        && data.notes is string && data.notes.size() <= 2000
+        && data.timestamp is number
+        && (!('phoneNumber' in data) || (data.phoneNumber is string && data.phoneNumber.size() <= 100))
+        && (!('nationality' in data) || (data.nationality is string && data.nationality.size() <= 100))
+        && (!('roomClassification' in data) || (data.roomClassification is string && data.roomClassification.size() <= 100))
+        && (!('checkoutConfirmed' in data) || data.checkoutConfirmed is bool)
+        && (!('isPaid' in data) || data.isPaid is bool)
+        && (!('paidDays' in data) || data.paidDays is number)
+        && (!('paidAmount' in data) || data.paidAmount is number)
+        && (!('paymentStatus' in data) || (data.paymentStatus is string && data.paymentStatus.size() <= 50))
+        && (!('pricingMode' in data) || (data.pricingMode is string && data.pricingMode.size() <= 50))
+        && (!('roomRateType' in data) || (data.roomRateType is string && data.roomRateType.size() <= 50))
+        && (!('baseRate' in data) || data.baseRate is number)
+        && (!('stayDurationHours' in data) || data.stayDurationHours is number)
+        && (!('rentalClassificationId' in data) || (data.rentalClassificationId is string && data.rentalClassificationId.size() <= 100))
+        && (!('calculatedRentalPrice' in data) || data.calculatedRentalPrice is number)
+        && (!('delayDurationMinutes' in data) || data.delayDurationMinutes is number)
+        && (!('delayPenaltyPaid' in data) || data.delayPenaltyPaid is number)
+        && (!('isLateCheckout' in data) || data.isLateCheckout is bool)
+        && (!('checkInTime' in data) || (data.checkInTime is string && data.checkInTime.size() <= 50))
+        && (!('discountAmount' in data) || data.discountAmount is number)
+        && (!('extraBreakfast' in data) || data.extraBreakfast is number)
+        && (!('extraParking' in data) || data.extraParking is number)
+        && (!('extraDinner' in data) || data.extraDinner is number)
+        && (!('extraLaundry' in data) || data.extraLaundry is number)
+        && (!('isIndefiniteStay' in data) || data.isIndefiniteStay is bool)
+        && (!('expectedCheckOutDate' in data) || (data.expectedCheckOutDate is string && data.expectedCheckOutDate.size() <= 100))
+        && (!('actualCheckOutDate' in data) || (data.actualCheckOutDate is string && data.actualCheckOutDate.size() <= 100));
+    }
+
+    // Entity validator: AppNote
+    function isValidAppNote(data) {
+      return data.id is string && data.id.size() <= 128
+        && data.content is string && data.content.size() <= 5000
+        && data.priority is string && (data.priority == 'normal' || data.priority == 'important' || data.priority == 'danger')
+        && data.senderRole is string && (data.senderRole == 'receptionist' || data.senderRole == 'police')
+        && data.timestamp is number
+        && data.readBy is list && data.readBy.size() <= 100
+        && (!('senderUsername' in data) || (data.senderUsername is string && data.senderUsername.size() <= 100))
+        && (!('channel' in data) || (data.channel is string && (data.channel == 'all' || data.channel == 'internal')));
+    }
+
+    // Entity validator: RoomStatus
+    function isValidRoomStatus(data) {
+      return data.roomId is string && data.roomId.size() <= 50
+        && data.status is string && (data.status == 'available' || data.status == 'occupied' || data.status == 'reserved' || data.status == 'out_of_order' || data.status == 'dirty')
+        && data.lastUpdated is number;
+    }
+
+    // Entity validator: AppNotification
+    function isValidAppNotification(data) {
+      return data.id is string && data.id.size() <= 128
+        && data.type is string && (data.type == 'new_guest' || data.type == 'guest_checkout' || data.type == 'new_note' || data.type == 'reminder_alert' || data.type == 'police_message' || data.type == 'maintenance_issue')
+        && data.title is string && data.title.size() <= 500
+        && data.content is string && data.content.size() <= 2000
+        && data.timestamp is number
+        && data.confirmedBy is list && data.confirmedBy.size() <= 100;
+    }
+
+    // Entity validator: MaintenanceIssue records
+    function isValidMaintenanceIssue(data) {
+      return data.id is string && data.id.size() <= 128
+        && data.itemType is string && (data.itemType == 'room' || data.itemType == 'facility' || data.itemType == 'other')
+        && data.targetName is string && data.targetName.size() <= 200
+        && data.description is string && data.description.size() <= 3000
+        && data.status is string && (data.status == 'active' || data.status == 'resolved')
+        && data.priority is string && (data.priority == 'medium' || data.priority == 'high' || data.priority == 'urgent')
+        && data.reportedBy is string && data.reportedBy.size() <= 100
+        && data.reportedAt is number
+        && (!('resolvedBy' in data) || (data.resolvedBy is string && data.resolvedBy.size() <= 100))
+        && (!('resolvedAt' in data) || data.resolvedAt is number);
+    }
+
+    // Entity validator: UserProfile records
+    function isValidUserProfile(data) {
+      return data.username is string && data.username.size() <= 100
+        && data.fullName is string && data.fullName.size() <= 200
+        && data.phoneNumber is string && data.phoneNumber.size() <= 100
+        && (!('whatsAppNumber' in data) || (data.whatsAppNumber is string && data.whatsAppNumber.size() <= 100))
+        && (!('customNotes' in data) || (data.customNotes is string && data.customNotes.size() <= 2000))
+        && data.updatedAt is number;
+    }
+
+    // --- /guests/{guestId} Match Rules ---
+    match /guests/{guestId} {
+      allow get: if isVerifiedUser() || isAnonymousUser() || request.auth == null;
+      allow list: if isVerifiedUser() || isAnonymousUser() || request.auth == null;
+      allow create: if isVerifiedUser() 
+        && isValidId(guestId) 
+        && guestId == incoming().id
+        && isValidGuest(incoming());
+      
+      allow update: if isVerifiedUser() 
+        && isValidId(guestId) 
+        && guestId == incoming().id
+        && isValidGuest(incoming())
+        // Keep primary ID & original creation parameters immutable
+        && incoming().id == existing().id
+        && incoming().timestamp == existing().timestamp;
+        
+      allow delete: if isVerifiedUser();
+    }
+
+    // --- /notes/{noteId} Match Rules ---
+    match /notes/{noteId} {
+      allow get: if isVerifiedUser() || isAnonymousUser() || request.auth == null;
+      allow list: if isVerifiedUser() || isAnonymousUser() || request.auth == null;
+      allow create: if (isVerifiedUser() || isAnonymousUser() || (request.auth == null && incoming().senderRole == 'police'))
+        && isValidId(noteId)
+        && noteId == incoming().id
+        && isValidAppNote(incoming());
+        
+      allow update: if (isVerifiedUser() || isAnonymousUser() || request.auth == null)
+        && isValidId(noteId)
+        && noteId == incoming().id
+        && isValidAppNote(incoming())
+        && incoming().id == existing().id
+        && incoming().timestamp == existing().timestamp
+        // Restrict updates strictly to appending read acknowledgements OR editing content and priority
+        && (
+          incoming().diff(existing()).affectedKeys().hasOnly(['readBy']) ||
+          incoming().diff(existing()).affectedKeys().hasOnly(['content', 'priority'])
+        );
+        
+      allow delete: if isVerifiedUser() || isAnonymousUser();
+    }
+
+    // --- /rooms/{roomId} Match Rules ---
+    match /rooms/{roomId} {
+      allow get: if isVerifiedUser() || isAnonymousUser() || request.auth == null;
+      allow list: if isVerifiedUser() || isAnonymousUser() || request.auth == null;
+      
+      allow create, update: if isVerifiedUser()
+        && isValidId(roomId)
+        && roomId == incoming().roomId
+        && isValidRoomStatus(incoming());
+        
+      allow delete: if isVerifiedUser();
+    }
+
+    // --- /maintenance/{issueId} Match Rules ---
+    match /maintenance/{issueId} {
+      allow get: if isVerifiedUser() || isAnonymousUser() || request.auth == null;
+      allow list: if isVerifiedUser() || isAnonymousUser() || request.auth == null;
+      allow create: if isVerifiedUser()
+        && isValidId(issueId)
+        && issueId == incoming().id
+        && isValidMaintenanceIssue(incoming());
+        
+      allow update: if isVerifiedUser()
+        && isValidId(issueId)
+        && issueId == incoming().id
+        && isValidMaintenanceIssue(incoming())
+        && incoming().id == existing().id
+        && incoming().reportedAt == existing().reportedAt;
+        
+      allow delete: if isVerifiedUser();
+    }
+
+    // --- /profiles/{username} Match Rules ---
+    match /profiles/{username} {
+      allow read: if isVerifiedUser() || isAnonymousUser() || request.auth == null;
+      allow create, update: if (isVerifiedUser() || isAnonymousUser() || request.auth == null)
+        && isValidId(username)
+        && username == incoming().username
+        && isValidUserProfile(incoming());
+      allow delete: if isVerifiedUser();
+    }
+
+    // --- /settings/{settingId} Match Rules ---
+    match /settings/{settingId} {
+      allow read: if isVerifiedUser() || isAnonymousUser() || request.auth == null;
+      allow write: if isVerifiedUser();
+    }
+
+    // --- /notifications/{notificationId} Match Rules ---
+    match /notifications/{notificationId} {
+      allow get: if isVerifiedUser() || isAnonymousUser() || request.auth == null;
+      allow list: if isVerifiedUser() || isAnonymousUser() || request.auth == null;
+      allow create: if (isVerifiedUser() || isAnonymousUser() || request.auth == null)
+        && isValidId(notificationId)
+        && notificationId == incoming().id
+        && isValidAppNotification(incoming());
+        
+      allow update: if (isVerifiedUser() || isAnonymousUser() || request.auth == null)
+        && isValidId(notificationId)
+        && notificationId == incoming().id
+        && isValidAppNotification(incoming())
+        && incoming().id == existing().id
+        && incoming().timestamp == existing().timestamp;
+        
+      allow delete: if isVerifiedUser() || isAnonymousUser();
+    }
+  }
+}
